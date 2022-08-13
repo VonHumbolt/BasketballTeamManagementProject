@@ -1,0 +1,15 @@
+type Query {
+    getAllPlayers: [Player]
+}
+
+type Player {
+    playerId: ID!
+    name: String!
+    surname: String!
+    position: Position
+}
+
+type Position {
+    positionId: ID!
+    positionName: String!
+}
