@@ -25,7 +25,7 @@ N-layer architecture was used as the project architecture.
 <li> Lombok </li>
 <li> JUnit </li>
 <li> Mockito </li>
-
+<br>
 As a relational database, PostgreSql was used. Additionally, the H2 database was used as an in memory database
 when writing the unit test of the data access layer. For Unit testing, JUnit and Mockito was used.
 API queries were provided by GraphQL.
