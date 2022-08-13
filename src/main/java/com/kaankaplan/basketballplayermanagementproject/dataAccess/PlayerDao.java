@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlayerDao extends JpaRepository<Player, Integer> {
 
+    @Query("from Player p where p.playerId=:playerId")
+    Player getPlayerByPlayerId(int playerId);
     @Query("select count(playerId) from Player")
     Integer getNumberOfPlayers();
 }

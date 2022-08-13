@@ -53,8 +53,12 @@ public class PlayerManager implements PlayerService {
     @Override
     public Integer deletePlayer(int playerId) {
 
-        this.playerDao.deleteById(playerId);
+        Player playerFromDb = this.playerDao.getPlayerByPlayerId(playerId);
 
-        return playerId;
+        if(playerFromDb != null) {
+            this.playerDao.deleteById(playerId);
+            return playerId;
+        }
+        throw new RuntimeException("Player with given id is not exist.");
     }
 }
