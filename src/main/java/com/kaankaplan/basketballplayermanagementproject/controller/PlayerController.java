@@ -1,12 +1,14 @@
 package com.kaankaplan.basketballplayermanagementproject.controller;
 
 import com.kaankaplan.basketballplayermanagementproject.business.abstracts.PlayerService;
+import com.kaankaplan.basketballplayermanagementproject.dto.PlayerDto;
 import com.kaankaplan.basketballplayermanagementproject.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
 
 @Controller
 public class PlayerController {
@@ -19,7 +21,17 @@ public class PlayerController {
     }
 
     @QueryMapping
-    public List<Player> getAllPlayers() {
+    public Iterable<Player> getAllPlayers() {
         return this.playerService.getAllPlayers();
+    }
+
+    @MutationMapping
+    public Player addPlayer(@Argument PlayerDto playerDto) {
+        return this.playerService.addPlayer(playerDto);
+    }
+
+    @MutationMapping
+    public Integer deletePlayer(@Argument int playerId) {
+        return this.playerService.deletePlayer(playerId);
     }
 }

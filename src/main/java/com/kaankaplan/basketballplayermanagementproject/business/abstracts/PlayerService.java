@@ -9,7 +9,7 @@ public interface PlayerService {
 
     List<Player> getAllPlayers();
 
-    void addPlayer(PlayerDto playerDto);
+    Player addPlayer(PlayerDto playerDto);
 
-    void deletePlayer(int playerId);
+    Integer deletePlayer(int playerId);
 }

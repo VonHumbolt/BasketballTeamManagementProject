@@ -6,6 +6,7 @@ import com.kaankaplan.basketballplayermanagementproject.dataAccess.PlayerDao;
 import com.kaankaplan.basketballplayermanagementproject.dto.PlayerDto;
 import com.kaankaplan.basketballplayermanagementproject.entity.Player;
 import com.kaankaplan.basketballplayermanagementproject.entity.Position;
+import com.kaankaplan.basketballplayermanagementproject.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,25 +30,31 @@ public class PlayerManager implements PlayerService {
     }
 
     @Override
-    public void addPlayer(PlayerDto playerDto) {
+    public Player addPlayer(PlayerDto playerDto) {
 
-        Position position = this.positionService.getPositionById(playerDto.getPositionId());
+        Position position = this.positionService.getPositionById(playerDto.positionId());
+        int numberOfPlayersInTeam = this.playerDao.getNumberOfPlayers();
 
         if (position != null){
-            Player player = Player.builder()
-                    .name(playerDto.getName())
-                    .surname(playerDto.getSurname())
-                    .position(position)
-                    .build();
-            this.playerDao.save(player);
+            if (numberOfPlayersInTeam < Constant.TEAM_CAPACITY){
+                Player player = Player.builder()
+                        .name(playerDto.name())
+                        .surname(playerDto.surname())
+                        .position(position)
+                        .build();
+                return this.playerDao.save(player);
+            }
+            throw new RuntimeException("The basketball team capacity is full");
         }
 
-        throw new NullPointerException("Position with given id is not found");
+        throw new RuntimeException("Position with given id is not found");
     }
 
     @Override
-    public void deletePlayer(int playerId) {
+    public Integer deletePlayer(int playerId) {
 
         this.playerDao.deleteById(playerId);
+
+        return playerId;
     }
 }

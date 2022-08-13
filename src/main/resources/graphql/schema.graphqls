@@ -2,11 +2,22 @@ type Query {
     getAllPlayers: [Player]
 }
 
+type Mutation {
+    addPlayer(playerDto: PlayerDto) : Player
+    deletePlayer(playerId: ID): Int
+}
+
+input PlayerDto {
+    name: String!
+    surname: String!
+    positionId: ID!
+}
+
 type Player {
     playerId: ID!
     name: String!
     surname: String!
-    position: Position
+    position: Position!
 }
 
 type Position {

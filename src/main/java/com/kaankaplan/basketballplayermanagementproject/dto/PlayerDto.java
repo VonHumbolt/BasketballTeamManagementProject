@@ -5,13 +5,5 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class PlayerDto {
 
-    private String name;
-    private String surname;
-    private int positionId;
-}
+public record PlayerDto(String name, String surname, Integer positionId) {}
